@@ -16,7 +16,7 @@ struct TextFieldDynamicWidth: View {
     
     var body: some View {
         ZStack {
-            Text(text).background(GlobalGeometryGetter(rect: $textRect)).opacity(0)
+            Text(text == "" ? title : text).background(GlobalGeometryGetter(rect: $textRect)).opacity(0)
             HStack {
                 TextField(title, text: $text, onEditingChanged: onEditingChanged, onCommit: onCommit)
                 .frame(width: textRect.width)
