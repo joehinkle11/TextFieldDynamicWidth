@@ -1,6 +1,5 @@
 //
 //  TextFieldDynamicWidth.swift
-//  appmaker
 //
 //  Created by Joseph Hinkle on 9/10/20.
 //
@@ -23,5 +22,30 @@ struct TextFieldDynamicWidth: View {
                 .frame(width: textRect.width)
             }
         }
+    }
+}
+
+
+//
+//  GlobalGeometryGetter
+//
+// source: https://stackoverflow.com/a/56729880/3902590
+//
+
+struct GlobalGeometryGetter: View {
+    @Binding var rect: CGRect
+
+    var body: some View {
+        return GeometryReader { geometry in
+            self.makeView(geometry: geometry)
+        }
+    }
+
+    func makeView(geometry: GeometryProxy) -> some View {
+        DispatchQueue.main.async {
+            self.rect = geometry.frame(in: .global)
+        }
+
+        return Rectangle().fill(Color.clear)
     }
 }
