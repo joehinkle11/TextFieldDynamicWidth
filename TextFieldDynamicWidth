@@ -1,0 +1,27 @@
+//
+//  TextFieldDynamicWidth.swift
+//  appmaker
+//
+//  Created by Joseph Hinkle on 9/10/20.
+//
+
+import SwiftUI
+
+struct TextFieldDynamicWidth: View {
+    let title: String
+    @Binding var text: String
+    let onEditingChanged: (Bool) -> Void
+    let onCommit: () -> Void
+    
+    @State private var textRect = CGRect()
+    
+    var body: some View {
+        ZStack {
+            Text(text).background(GlobalGeometryGetter(rect: $textRect))
+            HStack {
+                TextField(title, text: $text, onEditingChanged: onEditingChanged, onCommit: onCommit)
+                .frame(width: textRect.width)
+            }
+        }
+    }
+}
